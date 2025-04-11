@@ -40,12 +40,12 @@ jobs:
 
       - name: Install Cloudsmith CLI
         run: pip install cloudsmith-cli
-        
+
       - name: Push package to Cloudsmith
         run: |
           if ! ls dist/*.tar.gz 1> /dev/null 2>&1; then
             echo "No package found to upload"
             exit 1
           fi
-          cloudsmith push python ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_REPOSITORY }} dist/*.tar.gz --republish
+          cloudsmith push python ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_REPOSITORY }} dist/*.tar.gz --republish -k ${{ secrets.CLOUDSMITH_API_KEY }}
         shell: bash
