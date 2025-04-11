@@ -38,6 +38,9 @@ jobs:
         run: ls -la dist/
         shell: bash
 
+      - name: Install Cloudsmith CLI
+        run: pip install cloudsmith-cli
+        
       - name: Push package to Cloudsmith
         run: |
           if ! ls dist/*.tar.gz 1> /dev/null 2>&1; then
