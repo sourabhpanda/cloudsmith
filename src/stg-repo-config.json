@@ -1,0 +1,6 @@
+{
+    "name": "staging",
+    "description": "Creating staging repository",
+    "repository_type_str": "Private",
+    "slug": "staging"
+}
