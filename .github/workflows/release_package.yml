@@ -10,7 +10,7 @@ on:
 
 env:
   CLOUDSMITH_NAMESPACE: ${{ vars.CLOUDSMITH_NAMESPACE }}
-  CLOUDSMITH_REPOSITORY: "production"
+  CLOUDSMITH_REPOSITORY: "staging"
   CLOUDSMITH_SERVICE_SLUG: ${{ vars.CLOUDSMITH_SERVICE_SLUG }}
 
 permissions:
@@ -53,13 +53,6 @@ jobs:
           curl --request GET --url https://api.cloudsmith.io/v1/user/self/ --header "X-Api-Key:Bearer $token" --header 'accept: application/json'
                     
           echo "CLOUDSMITH_API_KEY=$token" >> $GITHUB_ENV
-      
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Create Cloudsmith repo
-        run:  cloudsmith repos create ${{ env.CLOUDSMITH_NAMESPACE }} src/stg-repo-config.json
-        shell: bash
 
       - name: Push package to Cloudsmith
         run: |
