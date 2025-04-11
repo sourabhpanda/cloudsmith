@@ -53,6 +53,10 @@ jobs:
           curl --request GET --url https://api.cloudsmith.io/v1/user/self/ --header "X-Api-Key:Bearer $token" --header 'accept: application/json'
                     
           echo "CLOUDSMITH_API_KEY=$token" >> $GITHUB_ENV
+      
+      - name: Checkout code
+        uses: actions/checkout@v4
+        
       - name: Create Cloudsmith repo
         run:  cloudsmith repos create ${{ env.CLOUDSMITH_NAMESPACE }} src/stg-repo-config.json
         shell: bash
