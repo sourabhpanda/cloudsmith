@@ -53,14 +53,8 @@ jobs:
           curl --request GET --url https://api.cloudsmith.io/v1/user/self/ --header "X-Api-Key:Bearer $token" --header 'accept: application/json'
                     
           echo "CLOUDSMITH_API_KEY=$token" >> $GITHUB_ENV
-      - name: Create Cloudsmith repo if not exists
-        run: |
-              NAME=${{ env.CLOUDSMITH_REPOSITORY }}
-              cloudsmith repos create \
-              --name "$NAME" \
-              --description "Staging Environment Creation" \
-              --repository_type_str "Private" \
-              --slug "staging"
+      - name: Create Cloudsmith repo
+        run:  cloudsmith repos create ${{ env.CLOUDSMITH_NAMESPACE }} src/stg-repo-config.json
         shell: bash
 
       - name: Push package to Cloudsmith
