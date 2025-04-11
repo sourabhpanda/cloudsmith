@@ -55,19 +55,12 @@ jobs:
           echo "CLOUDSMITH_API_KEY=$token" >> $GITHUB_ENV
       - name: Create Cloudsmith repo if not exists
         run: |
-          RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" \
-            --header "Authorization: Bearer $CLOUDSMITH_API_KEY" \
-            https://api.cloudsmith.io/v1/repos/${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_REPOSITORY }}/)
-
-          if [ "$RESPONSE" -eq 404 ]; then
-            echo "Repo not found. Creating it..."
-            curl -X POST https://api.cloudsmith.io/v1/repos/${{ env.CLOUDSMITH_NAMESPACE }}// \
-              -H "Authorization: Bearer $CLOUDSMITH_API_KEY" \
-              -H "Content-Type: application/json" \
-              -d "{\"name\": \"${{ env.CLOUDSMITH_REPOSITORY }}\", \"description\": \"Staging repo for packages\", \"repository_type\": \"private\"}"
-          else
-            echo "Repo already exists or accessible (HTTP $RESPONSE)"
-          fi
+              NAME=${{ env.CLOUDSMITH_REPOSITORY }}
+              cloudsmith repos create \
+              --name "$NAME" \
+              --description "Staging Environment Creation" \
+              --repository_type_str "Private" \
+              --slug "staging"
         shell: bash
 
       - name: Push package to Cloudsmith
