@@ -10,7 +10,7 @@ on:
 
 env:
   CLOUDSMITH_NAMESPACE: ${{ vars.CLOUDSMITH_NAMESPACE }}
-  CLOUDSMITH_REPOSITORY: "staging"
+  CLOUDSMITH_REPOSITORY: "production"
   CLOUDSMITH_SERVICE_SLUG: ${{ vars.CLOUDSMITH_SERVICE_SLUG }}
 
 permissions:
@@ -56,7 +56,7 @@ jobs:
       
       - name: Checkout code
         uses: actions/checkout@v4
-        
+
       - name: Create Cloudsmith repo
         run:  cloudsmith repos create ${{ env.CLOUDSMITH_NAMESPACE }} src/stg-repo-config.json
         shell: bash

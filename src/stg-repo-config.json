@@ -1,6 +1,6 @@
 {
-    "name": "staging",
-    "description": "Creating staging repository",
+    "name": "production",
+    "description": "Creating production repository",
     "repository_type_str": "Private",
-    "slug": "staging"
+    "slug": "production"
 }
