@@ -35,6 +35,6 @@ async def handle_webhook(request: Request):
             headers=headers,
             json=data
         )
-    print("GitHub response:", response.status_code, response.text)
+    print(payload)
 
     return {"status": response.status_code}
