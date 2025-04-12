@@ -35,6 +35,5 @@ async def handle_webhook(request: Request):
             headers=headers,
             json=data
         )
-    print(payload)
 
     return {"status": response.status_code}
