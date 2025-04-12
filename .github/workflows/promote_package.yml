@@ -47,8 +47,8 @@ jobs:
           # Extract the identifier_perm using jq
           echo "Packaged data is: $PACKAGE_DATA"
 
-          IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].files[1].slug_perm')
-          echo "Identifier is: $IDENTIFIER"
+          IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].identifier_perm')
+          
           
           if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
             echo "Failed to find package identifier"
