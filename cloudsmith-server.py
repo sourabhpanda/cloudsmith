@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Request
 import httpx
 import os
+from dotenv import load_dotenv
+load_dotenv()
+
 
 app = FastAPI()
 
@@ -26,4 +29,6 @@ async def handle_webhook(request: Request):
             headers=headers,
             json=data
         )
+    print("GitHub response:", response.status_code, response.text)
+
     return {"status": response.status_code}
