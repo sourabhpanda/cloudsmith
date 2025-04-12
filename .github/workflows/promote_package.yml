@@ -45,6 +45,7 @@ jobs:
           PACKAGE_DATA=$(cloudsmith list package ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }} -q "$PACKAGE_QUERY" -F json)
           
           # Extract the identifier_perm using jq
+          echo "Packaged data is: $PACKAGE_DATA"
           IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].identifier_perm')
           
           # if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
