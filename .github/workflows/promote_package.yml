@@ -45,8 +45,8 @@ jobs:
           PACKAGE_DATA=$(cloudsmith list package ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }} -q "$PACKAGE_QUERY" -F json)
           
           # Extract the identifier_perm using jq
-          echo "Packaged data is: $PACKAGE_DATA"
-          
+          # echo "Packaged data is: $PACKAGE_DATA"
+
           IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].files[0].slug_perm')
           echo "Identifier is: $IDENTIFIER"
           
@@ -55,8 +55,9 @@ jobs:
             exit 1
           fi
           
-          cloudsmith tags add ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }}/$IDENTIFIER ready-for-production
           echo "Found package identifier: $IDENTIFIER"
+          
+          cloudsmith tags add ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }}/$IDENTIFIER ready-for-production
           
           # Promote package using the identifier
           cloudsmith mv --yes \
