@@ -45,15 +45,15 @@ jobs:
           PACKAGE_DATA=$(cloudsmith list package ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }} -q "$PACKAGE_QUERY" -F json)
           
           # Extract the identifier_perm using jq
-          # echo "Packaged data is: $PACKAGE_DATA"
-          # IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].identifier_perm')
-          IDENTIFIER=$(cloudsmith list packages ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }} -F pretty_json -q "format:cargo" | jq -r ".data[].filename, .data[].slug_perm")
+          echo "Packaged data is: $PACKAGE_DATA"
+          
+          IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].files[0].slug_perm')
           echo "Identifier is: $IDENTIFIER"
           
-          # if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
-          #   echo "Failed to find package identifier"
-          #   exit 1
-          # fi
+          if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
+            echo "Failed to find package identifier"
+            exit 1
+          fi
           
           cloudsmith tags add ${{ env.CLOUDSMITH_NAMESPACE }}/${{ env.CLOUDSMITH_STAGING_REPO }}/$IDENTIFIER ready-for-production
           echo "Found package identifier: $IDENTIFIER"
