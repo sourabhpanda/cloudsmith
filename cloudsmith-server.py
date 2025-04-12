@@ -8,8 +8,14 @@ load_dotenv()
 app = FastAPI()
 
 GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")  # Your PAT
-REPO = "username/repo-name"
+REPO = "sourabhpanda/cloudsmith"
 EVENT_TYPE = "cloudsmith-webhook"
+
+GITHUB_TOKEN = os.getenv("GITHUB_TOKEN")
+print("Loaded token:", GITHUB_TOKEN)  # Debug the token
+
+if not GITHUB_TOKEN:
+    print("Error: GITHUB_TOKEN not found in environment variables.")
 
 @app.post("/webhook")
 async def handle_webhook(request: Request):
