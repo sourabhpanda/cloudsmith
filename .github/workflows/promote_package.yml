@@ -4,12 +4,6 @@ name: Promote Python Package
 
 
 on:
-  # workflow_dispatch:
-  #   inputs:
-  #     package_version:
-  #       description: 'Package version to promote (e.g., 0.0.1)'
-  #       required: true
-  #       type: string
   repository_dispatch:
     types: [cloudsmith-webhook]
 
