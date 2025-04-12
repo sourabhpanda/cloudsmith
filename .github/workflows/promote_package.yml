@@ -47,7 +47,7 @@ jobs:
           # Extract the identifier_perm using jq
           echo "Packaged data is: $PACKAGE_DATA"
 
-          IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].files[0].slug_perm')
+          IDENTIFIER=$(echo "$PACKAGE_DATA" | jq -r '.data[0].files.slug_perm')
           echo "Identifier is: $IDENTIFIER"
           
           if [ -z "$IDENTIFIER" ] || [ "$IDENTIFIER" = "null" ]; then
